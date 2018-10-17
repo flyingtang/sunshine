@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class FluterFlex extends StatelessWidget {
   FluterFlex({this.time, this.title, this.comment, this.pic});
 
-  String time, title, comment, pic;
+  final time, title, comment, pic;
 
   @override
   Widget build(BuildContext context) {
@@ -14,11 +14,10 @@ class FluterFlex extends StatelessWidget {
         height: 80.0,
         child: new Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween, //子组件的排列方式为主轴两端对齐
-
           children: <Widget>[
             new Expanded(
               flex: 1, //这个item占据剩余空间的份数，因为总数为3，所以此处占据1/3
-              child:  Image.network(
+              child: Image.network(
                 this.pic,
                 height: 80.0,
                 fit: BoxFit.cover,

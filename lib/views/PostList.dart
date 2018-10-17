@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:english_words/english_words.dart';
 import 'FluterFlex.dart';
 import 'package:myapp/utils/netutils.dart';
 import 'package:myapp/api/Api.dart' as urls;
 import 'dart:convert';
-// import 'datetiem';
+import 'PostDetail.dart';
 
 class PostListScreen extends StatefulWidget {
   @override
@@ -15,15 +14,16 @@ class PostListScreenState extends State<PostListScreen> {
   final _suggestions = new List();
   num _page = 1;
 
-  PostListScreenState() {
-    var page = this._page;
-    _getOnePagePosts(page);
-  }
+  // PostListScreenState() {
+  //   var page = this._page;
+  //   // _getOnePagePosts(page);
+  // }
 
   // 获取一页的数据
   _getOnePagePosts(num page) async {
     var url = urls.API.topics;
-    var params = {"page": page.toString()};
+
+    var params = {"tab": "share", "page": page, "limit":10, "mdrender":false};
     NetUtils.get(url, params: params).then((data) {
       Map<String, dynamic> obj = json.decode(data);
       setState(() {
@@ -43,7 +43,7 @@ class PostListScreenState extends State<PostListScreen> {
   }
 
   Widget _buildPost() {
-    var currentPost = null;
+    var currentPost;
     return ListView.builder(
       padding: const EdgeInsets.all(16.0),
       itemBuilder: (context, index) {
@@ -56,16 +56,25 @@ class PostListScreenState extends State<PostListScreen> {
         // currentPost = _suggestions[i];
         if (_suggestions.length > 0) {
           currentPost = _suggestions[i];
+          return new GestureDetector(
+            onTap: () {
 
-          return new FluterFlex(
-            time: new TimeOfDay.now().format(context),
-            title: currentPost["title"],
-            comment: currentPost["reply_count"].toString() + " 评",
-            pic: currentPost["author"]["avatar_url"],
+              Navigator.of(context).push(new MaterialPageRoute(
+                builder: (context) {
+                 return new PostDetailScreen(postId: currentPost["id"]);
+                },
+              ));
+            },
+            child: new FluterFlex(
+              // TODO 时间还无法处理
+              time: new TimeOfDay.now().format(context),
+              title: currentPost["title"],
+              comment: currentPost["reply_count"].toString() + " 评",
+              pic: currentPost["author"]["avatar_url"],
+            ),
           );
         }
       },
     );
   }
 }
-
