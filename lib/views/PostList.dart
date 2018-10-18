@@ -23,7 +23,7 @@ class PostListScreenState extends State<PostListScreen> {
   _getOnePagePosts(num page) async {
     var url = urls.API.topics;
 
-    var params = {"tab": "share", "page": page, "limit":10, "mdrender":false};
+    var params = {"tab": "share", "page": page, "limit": 10, "mdrender": false};
     NetUtils.get(url, params: params).then((data) {
       Map<String, dynamic> obj = json.decode(data);
       setState(() {
@@ -47,21 +47,20 @@ class PostListScreenState extends State<PostListScreen> {
     return ListView.builder(
       padding: const EdgeInsets.all(16.0),
       itemBuilder: (context, index) {
-        if (index.isOdd) return Divider();
-        final i = index ~/ 2;
-        if (i >= _suggestions.length) {
+        // if (index.isOdd) return Divider();
+        // final i = index ~/ 2;
+        if (index >= _suggestions.length) {
           _getOnePagePosts(this._page++);
         }
-        print(_suggestions);
+      
         // currentPost = _suggestions[i];
         if (_suggestions.length > 0) {
-          currentPost = _suggestions[i];
+          currentPost = _suggestions[index];
           return new GestureDetector(
             onTap: () {
-
               Navigator.of(context).push(new MaterialPageRoute(
                 builder: (context) {
-                 return new PostDetailScreen(postId: currentPost["id"]);
+                  return new PostDetailScreen(postId: currentPost["id"]);
                 },
               ));
             },
