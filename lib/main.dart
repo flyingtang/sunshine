@@ -2,7 +2,7 @@
 import "package:flutter/material.dart";
 import 'views/Layout.dart';
 import 'package:flutter/rendering.dart' show debugPaintSizeEnabled;
-
+import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 // import 'package:english_words/english_words.dart';
 
 void main() {
@@ -16,6 +16,14 @@ class MyApp extends StatelessWidget {
     return new MaterialApp(
       title: "titl1e",
       home: new BottomNavigationWidget(),
+      // routes: <String, WidgetBuilder>{
+      //   "/detail": (BuildContext context) => new WebviewScaffold(
+      //         url: "https://baidu.com",
+      //         appBar: new AppBar(
+      //           title: new Text("web"),
+      //         ),
+      //       )
+      // },
     );
   }
 }

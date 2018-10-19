@@ -4,6 +4,7 @@ import 'package:myapp/utils/netutils.dart';
 import 'package:myapp/api/Api.dart' as urls;
 import 'dart:convert';
 import 'PostDetail.dart';
+import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 
 class PostListScreen extends StatefulWidget {
   @override
@@ -13,7 +14,7 @@ class PostListScreen extends StatefulWidget {
 class PostListScreenState extends State<PostListScreen> {
   final _suggestions = new List();
   num _page = 1;
-
+  String Url;
   // PostListScreenState() {
   //   var page = this._page;
   //   // _getOnePagePosts(page);
@@ -52,17 +53,23 @@ class PostListScreenState extends State<PostListScreen> {
         if (index >= _suggestions.length) {
           _getOnePagePosts(this._page++);
         }
-      
+
         // currentPost = _suggestions[i];
         if (_suggestions.length > 0) {
           currentPost = _suggestions[index];
           return new GestureDetector(
             onTap: () {
-              Navigator.of(context).push(new MaterialPageRoute(
-                builder: (context) {
-                  return new PostDetailScreen(postId: currentPost["id"]);
-                },
-              ));
+              // Navigator.of(context).push(new MaterialPageRoute(
+              //   builder: (BuildContext context)=> new PostDetailScreen(postId: currentPost["id"],)
+              // ));
+              Navigator.of(context).push(new MaterialPageRoute(builder: (_) {
+                return new WebviewScaffold(
+                  url: "https://baidu.com",
+                  appBar: new AppBar(
+                      // title: new Text("文章详情"),
+                      ),
+                );
+              }));
             },
             child: new FluterFlex(
               // TODO 时间还无法处理

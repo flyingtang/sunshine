@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:http/http.dart' as http;
 
 class NetUtils {
-  static Future<String> get(String url, {Map<String, dynamic> params}) async {
+  static  get(String url, {Map<String, dynamic> params}) async {
     try {
   
       if (params != null && params.isNotEmpty) {
